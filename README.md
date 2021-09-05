@@ -1,5 +1,34 @@
-# vmboot
-QEMU VM launch wrapper
+### vmboot
+## Description
+QEMU VM launch wrapper - BASH shell script
+
+## Example usage
+* Boot Linux ISO
+```
+$ vmboot endeavouros-2021.08.27-x86_64.iso
+```
+output:
+```
+qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -nic mac=52:54:2f:85:f3:76 -device AC97 -cdrom "endeavouros-2021.08.27-x86_64.iso"
+```
+* Boot Linux hard disk image
+```
+$ vmboot archman-20G.raw 
+```
+output:
+```
+qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -nic mac=52:54:d9:2e:e9:01 -device AC97 -drive format=raw,file="archman-20G.raw"
+```
+* Boot Windows ISO with hard disk image attached and RAM set to 8 GB
+```
+$ vmboot win7sp1_PRO_x64FRE_en-us.iso -hda 40G.qcow2 -m 8G
+```
+output:
+```
+qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -nic mac=52:54:3b:a3:8e:45 -device AC97 -hda 40G.qcow2 -m 8G -cdrom "win7sp1_PRO_x64FRE_en-us.iso"
+```
+
+## Help
 ```
 $ vmboot -h
 
@@ -54,10 +83,11 @@ Some common QEMU [-opt]ions:
 
 For more QEMU options type: vmboot - --help
 ```
----
-~/.config/vmbootrc
+
+## Configuration file
+automatically generated
 ```
-# /home/user/.config/vmbootrc
+# ~/.config/vmbootrc
 #
 # vmboot configuration file
 #
