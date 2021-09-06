@@ -12,7 +12,7 @@ source ${CFG}
 
 # If basic options are missing in config file, warn and use QEMU defaults
 if [[ ${CMD} == "" ]]; then
-echo "Missing options in ${CFG}. Using defaults."
+echo "Missing options in ${CFG}. Using QEMU defaults."
 CMD="qemu-system-x86_64"
 fi
 
