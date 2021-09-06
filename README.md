@@ -19,7 +19,7 @@ output:
 ```
 qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -nic mac=52:54:d9:2e:e9:01 -device AC97 -drive format=raw,file="archman-20G.raw"
 ```
-* Boot Windows ISO with attached hard disk image and 8 GB RAM
+* Boot Windows® ISO with attached hard disk image and 8 GB RAM
 ```
 $ vmboot win7sp1_PRO_x64FRE_en-us.iso -hda 40G.qcow2 -m 8G
 ```
