@@ -97,6 +97,7 @@ automatically generated
 
 CMD="qemu-system-x86_64"
 CPU="-enable-kvm -cpu host"
+#CPU="-machine q35,accel=kvm -cpu host,kvm=off"
 SMP="-smp 2"
 RAM="-m 4G"
 #NIC="-nic mac=52:54:00:01:02:03"
