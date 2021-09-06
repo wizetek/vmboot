@@ -103,7 +103,7 @@ Some common QEMU [-opt]ions:
   -boot d		a b (FDD1 FDD2), c d (HDD1 HDD2), d (CDROM), n (NIC)
   -boot c,once=d
   -nic mac=52:54:01:23:45:67
-  -nic bridge
+  -nic bridge		(Must be configured on host)
   -nic none		No network
   -nic hostfwd=tcp::5022-:22
   -nic hostfwd=tcp::6001-:6000
