@@ -10,7 +10,7 @@ CFG="${HOME}/.config/$(basename ${0})rc"
 if [[ -f ${CFG} && -r ${CFG} ]]; then
 source ${CFG}
 
-# If basic options are missing in config file, warn and set defaults
+# If basic options are missing in config file, warn and use QEMU defaults
 if [[ ${CMD} == "" ]]; then
 echo "Missing options in ${CFG}. Using defaults."
 CMD="qemu-system-x86_64"
@@ -29,6 +29,7 @@ cat > ${CFG} << ENDCFGFILE
 
 CMD="qemu-system-x86_64"
 CPU="-enable-kvm -cpu host"
+#CPU="-machine q35,accel=kvm -cpu host,kvm=off"
 SMP="-smp 2"
 RAM="-m 4G"
 #NIC="-nic mac=52:54:00:01:02:03"
@@ -42,7 +43,7 @@ ENDCFGFILE
 echo "Created ${CFG}"
 exec ${0} ${@}
 
-# If unable to use config file, warn and set some default options
+# If unable to use config file, warn and set some basic QEMU options
 else
 echo "Failed to access ${CFG}. Using default options."
 CMD="qemu-system-x86_64"
@@ -141,6 +142,10 @@ fi
 # If any QEMU switches are supplied, override the corresponding config file options
 for ARG in ${@}; do
 case $ARG in
+
+-cpu)
+CPU=""
+;;
 
 -smp)
 SMP=""
