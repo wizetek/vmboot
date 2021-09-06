@@ -19,7 +19,7 @@ output:
 ```
 qemu-system-x86_64 -enable-kvm -cpu host -smp 2 -m 4G -nic mac=52:54:d9:2e:e9:01 -device AC97 -drive format=raw,file="archman-20G.raw"
 ```
-* Boot Windows ISO with hard disk image attached and RAM set to 8 GB
+* Boot Windows ISO with attached hard disk image and 8 GB RAM
 ```
 $ vmboot win7sp1_PRO_x64FRE_en-us.iso -hda 40G.qcow2 -m 8G
 ```
@@ -56,13 +56,14 @@ Optional first switch:
 Some common QEMU [-opt]ions:
   -boot d		a b (FDD1 FDD2), c d (HDD1 HDD2), d (CDROM), n (NIC)
   -boot c,once=d
+  -nic mac=52:54:01:23:45:67
+  -nic bridge
+  -nic none		No network
   -nic hostfwd=tcp::5022-:22
   -nic hostfwd=tcp::6001-:6000
   -nic hostfwd=tcp::5555-:3389
-  -nic bridge,mac=52:54:00:12:34:56
   -nic model=virtio-net-pci
-  -nic none		No network
-  -nic,model=?		List supported NIC models
+  -nic model=?		List supported NIC models
   -soundhw ?		List supported sound cards
   -device ?		List all available devices by type
   -device usb-tablet	(Prevents mouse grab)
@@ -97,10 +98,11 @@ automatically generated
 
 CMD="qemu-system-x86_64"
 CPU="-enable-kvm -cpu host"
+# Q35 PCIe instead of i440FX PCI host bridge
 #CPU="-machine q35,accel=kvm -cpu host,kvm=off"
 SMP="-smp 2"
 RAM="-m 4G"
-#NIC="-nic mac=52:54:00:01:02:03"
+#NIC="-nic mac=52:54:01:23:45:67"
 # Random MAC address
 NIC="-nic mac=$( printf 52:54:%02x:%02x:%02x:%02x $(( ${RANDOM} & 0xff )) $(( ${RANDOM} & 0xff )) $(( ${RANDOM} & 0xff)) $(( ${RANDOM} & 0xff )) )"
 #SND="-soundhw hda"
