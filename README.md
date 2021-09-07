@@ -79,8 +79,8 @@ Some common QEMU [-opt]ions:
   -nographic		No GUI / command line only (output and Monitor in host console)
   -monitor stdio	Monitor in host console
   -monitor telnet:127.0.0.1:5023,server,nowait
+  -name			Title for QEMU window and VNC window
   -daemonize		Detach process from stdio
-  -name			Set name for window title and VNC
 
 For more QEMU options type: vmboot - --help
 ```
@@ -98,7 +98,7 @@ automatically generated
 
 CMD="qemu-system-x86_64"
 CPU="-enable-kvm -cpu host"
-# Q35 PCIe instead of i440FX PCI host bridge
+# Newer Q35 PCIe instead of i440FX PCI host bridge
 #CPU="-machine q35,accel=kvm -cpu host,kvm=off"
 SMP="-smp 2"
 RAM="-m 4G"
