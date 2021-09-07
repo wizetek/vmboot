@@ -2,7 +2,7 @@
 
 # vmboot - QEMU VM launch wrapper
 # configuration in ~/.config/vmbootrc
-# 2021-09-06 Tom Wizetek <tom@wizetek.com>
+# 2021-09-07 Tom Wizetek <tom@wizetek.com>
 
 CFG="${HOME}/.config/$(basename ${0})rc"
 
@@ -10,7 +10,7 @@ CFG="${HOME}/.config/$(basename ${0})rc"
 if [[ -f ${CFG} && -r ${CFG} ]]; then
 source ${CFG}
 
-# If basic options are missing in config file, warn and use QEMU defaults
+# If command is missing in config file, warn and use QEMU defaults
 if [[ ${CMD} == "" ]]; then
 echo "Missing options in ${CFG}. Using QEMU defaults."
 CMD="qemu-system-x86_64"
@@ -29,7 +29,7 @@ cat > ${CFG} << ENDCFGFILE
 
 CMD="qemu-system-x86_64"
 CPU="-enable-kvm -cpu host"
-# Q35 PCIe instead of i440FX PCI host bridge
+# Newer Q35 PCIe instead of i440FX PCI host bridge
 #CPU="-machine q35,accel=kvm -cpu host,kvm=off"
 SMP="-smp 2"
 RAM="-m 4G"
@@ -125,8 +125,8 @@ Some common QEMU [-opt]ions:
   -nographic		No GUI / command line only (output and Monitor in host console)
   -monitor stdio	Monitor in host console
   -monitor telnet:127.0.0.1:5023,server,nowait
+  -name			Title for QEMU window and VNC window
   -daemonize		Detach process from stdio
-  -name			Set name for window title and VNC
 
 For more QEMU options type: $(basename ${0}) - --help
 
@@ -141,7 +141,7 @@ if [[ ${EXT} == "" ]]; then
 EXT="${1:(-4)}"
 fi
 
-# If any QEMU switches are supplied, override the corresponding config file options
+# If QEMU switches are supplied, override the corresponding default options
 for ARG in ${@}; do
 case $ARG in
 
@@ -173,7 +173,7 @@ NAM=""
 esac
 done
 
-# Identify .raw and .iso simply by file extension and force disk type
+# Identify .raw and .iso simply by file extension and then force disk type
 case ${EXT} in
 
 .raw)
@@ -195,7 +195,7 @@ NAM="$(basename -a ${1} 2>/dev/null)"
 shift
 echo ${CMD} ${CPU} ${SMP} ${RAM} ${NIC} ${SND} ${OPT} ${@} ${DSK}\"${IMG}\"
 
-# Execute based on whether '-name' is specified
+# Execute QEMU based on whether '-name' is specified
 if [[ ${NAM} == "" ]]; then
 ${CMD} ${CPU} ${SMP} ${RAM} ${NIC} ${SND} ${OPT} ${@} ${DSK}"${IMG}"
 else
