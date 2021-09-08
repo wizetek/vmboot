@@ -97,9 +97,9 @@ automatically generated
 # SMP, RAM, NIC, SND, OPT are optional
 
 CMD="qemu-system-x86_64"
-CPU="-enable-kvm -cpu host"
+CPU="-accel kvm -cpu host"
 # Newer Q35 PCIe instead of i440FX PCI host bridge
-#CPU="-machine q35,accel=kvm -cpu host,kvm=off"
+#CPU="-machine q35,accel=kvm -cpu host"
 SMP="-smp 2"
 RAM="-m 4G"
 #NIC="-nic mac=52:54:01:23:45:67"
