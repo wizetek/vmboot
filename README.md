@@ -19,13 +19,13 @@ output:
 ```
 qemu-system-x86_64 -accel kvm -cpu host -smp 2 -m 4G -nic mac=52:54:d9:2e:e9:01 -device AC97 -drive format=raw,file="archman-20G.raw"
 ```
-* Boot Windows® ISO with attached hard disk image, Realtek network card and 8 GB RAM
+* Boot Windows® ISO + hard disk image, Realtek network card, 8 GB RAM
 ```
-$ vmboot win7sp1_PRO_x64FRE_en-us.iso -hda hdd-40G.qcow2 -nic model=rtl8139 -m 8G
+$ vmboot win7sp1_PRO_x64FRE_en-us.iso -hda 40G.qcow2 -nic model=rtl8139 -m 8G
 ```
 output:
 ```
-qemu-system-x86_64 -accel kvm -cpu host -smp 2 -device AC97 -hda hdd-40G.qcow2 -nic model=rtl8139 -m 8G -cdrom "win7sp1_PRO_x64FRE_en-us.iso"
+qemu-system-x86_64 -accel kvm -cpu host -smp 2 -device AC97 -hda 40G.qcow2 -nic model=rtl8139 -m 8G -cdrom "win7sp1_PRO_x64FRE_en-us.iso"
 ```
 
 ## Help
