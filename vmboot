@@ -180,7 +180,7 @@ SMP=""
 RAM=""
 ;;
 
--nic)
+-nic|-netdev)
 NIC=""
 ;;
 
