@@ -73,13 +73,15 @@ Some common QEMU [-opt]ions:
   -S			Start paused
   -no-shutdown		Don't exit on shutdown
   -no-quit		Don't allow closing window
+  -full-screen
+  -name			Title for QEMU window and VNC window
   -vnc :1		Video output to VNC server display :1 (password set in Monitor)
   -vnc :0,to=9,lossy=on	Try :0, :1, :2, :3, ... until :9; use lossy JPEG compression
   -display none		No video output to user (guest still has video)
   -nographic		No GUI / command line only (output and Monitor in host console)
   -monitor stdio	Monitor in host console
+  -monitor unix:/tmp/qemu-monitor,server,nowait		('socat /tmp/qemu-monitor STDIO')
   -monitor telnet:127.0.0.1:5023,server,nowait
-  -name			Title for QEMU window and VNC window
   -daemonize		Detach process from stdio
 
 For more QEMU options type: vmboot - --help
