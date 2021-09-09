@@ -38,7 +38,7 @@ RAM="-m 4G"
 NIC="-nic mac=\$( printf 52:54:%02x:%02x:%02x:%02x \$(( \${RANDOM} & 0xff )) \$(( \${RANDOM} & 0xff )) \$(( \${RANDOM} & 0xff)) \$(( \${RANDOM} & 0xff )) )"
 #SND="-soundhw hda"
 SND="-device AC97"
-#OPT="-action panic=pause"
+#OPT="-monitor unix:/tmp/qemu-monitor,server,nowait -action panic=pause"
 ENDCFGFILE
 
 echo "Created ${CFG}"
