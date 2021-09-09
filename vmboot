@@ -2,7 +2,7 @@
 
 # vmboot - QEMU VM launch wrapper
 # configuration in ~/.config/vmbootrc
-# 2021-09-08 Tom Wizetek <tom@wizetek.com>
+# 2021-09-09 Tom Wizetek <tom@wizetek.com>
 
 CFG="${HOME}/.config/$(basename ${0})rc"
 
@@ -10,7 +10,7 @@ CFG="${HOME}/.config/$(basename ${0})rc"
 if [[ -f ${CFG} && -r ${CFG} ]]; then
 source ${CFG}
 
-# If command is missing in config file, warn and use QEMU defaults
+# If QEMU command is missing in config file, warn and use QEMU defaults
 if [[ ${CMD} == "" ]]; then
 echo "Missing options in ${CFG}. Using QEMU defaults."
 CMD="qemu-system-x86_64"
@@ -42,6 +42,7 @@ SND="-device AC97"
 ENDCFGFILE
 
 echo "Created ${CFG}"
+# Re-run the script with all supplied arguments
 exec ${0} ${@}
 
 # If unable to use config file, warn and set some basic QEMU options
@@ -119,13 +120,15 @@ Some common QEMU [-opt]ions:
   -S			Start paused
   -no-shutdown		Don't exit on shutdown
   -no-quit		Don't allow closing window
+  -full-screen
+  -name			Title for QEMU window and VNC window
   -vnc :1		Video output to VNC server display :1 (password set in Monitor)
   -vnc :0,to=9,lossy=on	Try :0, :1, :2, :3, ... until :9; use lossy JPEG compression
   -display none		No video output to user (guest still has video)
   -nographic		No GUI / command line only (output and Monitor in host console)
   -monitor stdio	Monitor in host console
+  -monitor unix:/tmp/qemu-monitor,server,nowait		('socat /tmp/qemu-monitor STDIO')
   -monitor telnet:127.0.0.1:5023,server,nowait
-  -name			Title for QEMU window and VNC window
   -daemonize		Detach process from stdio
 
 For more QEMU options type: $(basename ${0}) - --help
@@ -140,6 +143,26 @@ esac
 if [[ ${EXT} == "" ]]; then
 EXT="${1:(-4)}"
 fi
+
+# Identify .raw and .iso simply by file extension and then force disk type
+case ${EXT} in
+
+.raw)
+DSK="-drive format=raw,file="
+;;
+
+.iso)
+DSK="-cdrom "
+;;
+
+*)
+DSK="-hda "
+;;
+
+esac
+
+# Define window title at this point
+NAM="$(basename -a ${1} 2>/dev/null)"
 
 # If QEMU switches are supplied, override the corresponding default options
 for ARG in ${@}; do
@@ -173,25 +196,8 @@ NAM=""
 esac
 done
 
-# Identify .raw and .iso simply by file extension and then force disk type
-case ${EXT} in
-
-.raw)
-DSK="-drive format=raw,file="
-;;
-
-.iso)
-DSK="-cdrom "
-;;
-
-*)
-DSK="-hda "
-;;
-
-esac
-
+# Define disk image here and then shift arguments
 IMG="${1}"
-NAM="$(basename -a ${1} 2>/dev/null)"
 shift
 echo ${CMD} ${CPU} ${SMP} ${RAM} ${NIC} ${SND} ${OPT} ${@} ${DSK}\"${IMG}\"
 
