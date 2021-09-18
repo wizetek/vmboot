@@ -3,31 +3,27 @@
 QEMU VM launch wrapper - BASH shell script
 
 ## Example usage
-* Boot Linux ISO
+* **Boot Linux ISO**
 ```
 $ vmboot endeavouros-2021.08.27-x86_64.iso
 ```
 output:
-```
-qemu-system-x86_64 -accel kvm -cpu host -smp 2 -m 4G -nic mac=52:54:1f:cd:de:9a -device AC97 -cdrom "endeavouros-2021.08.27-x86_64.iso"
-```
-* Boot Linux hard disk image
+###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -m 4G -nic mac=52:54:1f:c1:da:9a -device AC97 -cdrom "endeavouros-2021.08.27-x86_64.iso"
+---
+* **Boot Linux hard disk image**
 ```
 $ vmboot archman-20G.raw 
 ```
 output:
-```
-qemu-system-x86_64 -accel kvm -cpu host -smp 2 -m 4G -nic mac=52:54:d9:2e:e9:01 -device AC97 -drive format=raw,file="archman-20G.raw"
-```
-* Boot Windows® ISO + hard disk image, Realtek network card, 8 GB RAM
+###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -m 4G -nic mac=52:54:d9:2e:e9:01 -device AC97 -drive format=raw,file="archman-20G.raw"
+---
+* **Boot Windows® ISO + hard disk image, Realtek network card, 8 GB RAM**
 ```
 $ vmboot win7sp1_PRO_x64FRE_en-us.iso -hda 40G.qcow2 -nic model=rtl8139 -m 8G
 ```
 output:
-```
-qemu-system-x86_64 -accel kvm -cpu host -smp 2 -device AC97 -hda 40G.qcow2 -nic model=rtl8139 -m 8G -cdrom "win7sp1_PRO_x64FRE_en-us.iso"
-```
-
+###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -device AC97 -hda 40G.qcow2 -nic model=rtl8139 -m 8G -cdrom "win7sp1_PRO_x64FRE_en-us.iso"
+---
 ## Help
 ```
 $ vmboot -h
@@ -89,7 +85,7 @@ Some common QEMU [-opt]ions:
 
 For more QEMU options type: vmboot - --help
 ```
-
+---
 ## Configuration file
 automatically generated
 ```
