@@ -46,12 +46,15 @@ For advanced usage type: vmboot --help
 ```
 $ vmboot --help
 
-  vmboot [-|-raw|-cd] diskimage.img [-opt] [-opt] [...]
+  vmboot [-raw|-cd|--] diskimage.img [-opt] [-opt] [...]
 
 Optional first switch:
-  -		Pass everything that follows directly to QEMU
   -raw		Force raw format for disk image
   -cd		Force cdrom medium for disk image
+  --		Pass everything that follows directly to QEMU
+  -v		Show version
+  -h		Basic help
+  --help	Advanced help
 
 Some common QEMU [-opt]ions:
   -boot d		a b (FDD1 FDD2), c d (HDD1 HDD2), d (CDROM), n (NIC)
