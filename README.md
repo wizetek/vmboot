@@ -1,8 +1,8 @@
 ### vmboot
-## Description
 QEMU VM launch wrapper - BASH shell script
 
-## Example usage
+---
+### Example usage
 * **Boot Linux ISO**
 ```
 $ vmboot endeavouros-2021.08.27-x86_64.iso
@@ -23,8 +23,9 @@ $ vmboot win7sp1_PRO_x64FRE_en-us.iso -hda 40G.qcow2 -nic model=rtl8139 -m 8G
 ```
 output:
 ###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -device AC97 -hda 40G.qcow2 -nic model=rtl8139 -m 8G -cdrom "win7sp1_PRO_x64FRE_en-us.iso"
+
 ---
-## Help
+### Help
 ```
 $ vmboot -h
 
@@ -85,8 +86,9 @@ Some common QEMU [-opt]ions:
 
 For more QEMU options type: vmboot - --help
 ```
+
 ---
-## Configuration file
+### Configuration file
 automatically generated
 ```
 # ~/.config/vmbootrc
