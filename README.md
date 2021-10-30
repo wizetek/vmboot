@@ -17,7 +17,7 @@ $ vmboot archman.raw
 output:
 ###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -m 4G -nic mac=52:54:d9:2e:e9:01 -device AC97 -drive format=raw,file="archman.raw"
 ---
-* **Boot Windows® ISO with attached hard disk image, use Realtek network card and 8 GB RAM**
+* **Boot Windows® ISO, attach empty hard disk image to install on, use Realtek network card, use 8 GB RAM**
 ```
 $ vmboot win7sp1_PRO_x64FRE_en-us.iso -hda windows.qcow2 -nic model=rtl8139 -m 8G
 ```
