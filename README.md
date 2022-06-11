@@ -35,8 +35,8 @@ Basic usage:
 
 QEMU options used automatically based on file extension:
   -cdrom	for .iso
-  -hda		for .qcow2 .vdi .vmdk .vhdx .img ...
-  -drive file=	for .raw
+  -hda		for .qcow2 .vdi .vmdk .vhdx ...
+  -drive file=	for .raw .img
 
 For advanced usage type: vmboot --help
 ```
@@ -84,7 +84,7 @@ Some common QEMU [-opt]ions:
   -monitor telnet::5023,server,nowait
   -daemonize		Detach process from stdio
 
-For more QEMU options type: vmboot - --help
+For more QEMU options type: vmboot -- --help
 ```
 
 ---
