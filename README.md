@@ -14,10 +14,10 @@ output:
 ---
 * **Boot Linux hard disk image**
 ```
-$ vmboot archman.raw
+$ vmboot archman.img
 ```
 output:
-###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -m 4G -nic mac=52:54:d9:2e:e9:01 -device AC97 -drive format=raw,file="archman.raw"
+###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -m 4G -nic mac=52:54:d9:2e:e9:01 -device AC97 -drive format=raw,file="archman.img"
 ---
 * **Access Linux hard disk image by booting into rescue CD image**
 ```
