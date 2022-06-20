@@ -5,7 +5,7 @@ Uses settings from a config file for consistent CPU and RAM setup, randomizes MA
 
 ---
 ### Example usage
-* **Boot Linux ISO**
+* **Boot Linux ISO image**
 ```
 $ vmboot antiX-19.4_x64-base.iso
 ```
@@ -14,12 +14,19 @@ output:
 ---
 * **Boot Linux hard disk image**
 ```
-$ vmboot archman.raw 
+$ vmboot archman.raw
 ```
 output:
 ###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -m 4G -nic mac=52:54:d9:2e:e9:01 -device AC97 -drive format=raw,file="archman.raw"
 ---
-* **Boot Windows© ISO, attach virtual disk image to install on, use Realtek network card, use 8 GB RAM**
+* **Access Linux hard disk image by booting into rescue CD image**
+```
+$ vmboot arco.qcow2 -cdrom systemrescue-9.03-amd64.iso -boot d
+```
+output:
+###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -m 4G -nic mac=52:54:a2:19:bb:c7 -device AC97 -cdrom systemrescue-9.03-amd64.iso -boot d -hda "arco.qcow2"
+---
+* **Boot Windows© ISO image, attach hard disk image for installation, use Realtek network card and 8 GB RAM**
 ```
 $ vmboot win7sp1_PRO_x64FRE_en-us.iso -hda windows.qcow2 -nic model=rtl8139 -m 8G
 ```
