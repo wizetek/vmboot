@@ -60,7 +60,7 @@ Optional first switch:
   --		Pass everything that follows directly to QEMU
   -v		Show version
   -h		Basic help
-  -help	Advanced help
+  -help		Advanced help
 
 Some common QEMU [-opt]ions:
   -boot d		a b (FDD1 FDD2), c d (HDD1 HDD2), d (CDROM), n (NIC)
