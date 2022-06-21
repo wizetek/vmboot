@@ -4,8 +4,8 @@
 # configuration in ~/.config/vmbootrc
 # Tom Wizetek <tom@wizetek.com>
 
-# --gen-ver
-VER="22.171"
+# -gen-ver
+VER="22.172"
 CFG="${HOME}/.config/$(basename ${0})rc"
 
 # Try to read config file
@@ -33,7 +33,7 @@ cat > ${CFG} << ENDCFGFILE
 CMD="qemu-system-x86_64"
 CPU="-accel kvm -cpu host"
 ## Newer Q35 PCIe instead of i440FX PCI host bridge
-#CPU="-machine q35,accel=kvm -cpu host"
+#CPU="\${CPU} -machine q35"
 SMP="-smp 2"
 RAM="-m 4G"
 #NIC="-nic mac=52:54:01:23:45:67"
@@ -42,7 +42,7 @@ NIC="-nic mac=\$( printf 52:54:%02x:%02x:%02x:%02x \$(( \${RANDOM} & 0xff )) \$(
 #SND="-device AC97"
 SND="-device intel-hda -device hda-duplex"
 #OPT="-monitor unix:/tmp/qemu-monitor,server,nowait -action panic=pause"
-#OPT="-display gtk,gl=on,window-close=off"
+#OPT="\${OPT} -display gtk,gl=on,window-close=off"
 ENDCFGFILE
 
 echo "Created ${CFG}"
@@ -65,6 +65,10 @@ case ${1} in
 exec ${CMD} -h
 ;;
 
+--version)
+exec ${CMD} -version
+;;
+
 --)
 shift
 exec ${CMD} ${@}
@@ -80,12 +84,12 @@ EXT=".iso"
 shift
 ;;
 
--v|--version)
+-v|-ver|-version)
 echo "$(basename ${0}) version ${VER}"
 exit 0
 ;;
 
---gen-ver)
+-gen-ver)
 echo "VER=\"$(date +%y.%j)\""
 exit 0
 ;;
@@ -95,7 +99,7 @@ cat << ENDSHORTHELP
 
 Basic usage:
 
-  $(basename ${0}) diskimage.img
+  $(basename ${0}) diskimage
 
 QEMU options used automatically based on file extension:
   -cdrom	for .iso
@@ -111,7 +115,7 @@ exit 0
 -help)
 cat << ENDLONGHELP
 
-  $(basename ${0}) [-raw|-cd|--] diskimage.img [-opt] [-opt] [...]
+  $(basename ${0}) [-raw|-cd|--] diskimage [-opt] [-opt] [...]
 
 Optional first switch:
   -raw		Force raw format for disk image
