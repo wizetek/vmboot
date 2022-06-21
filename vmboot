@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # vmboot - QEMU VM launch wrapper
 # configuration in ~/.config/vmbootrc
 # Tom Wizetek <tom@wizetek.com>
 
 # --gen-ver
-VER="22.148"
+VER="22.171"
 CFG="${HOME}/.config/$(basename ${0})rc"
 
 # Try to read config file
@@ -32,16 +32,17 @@ cat > ${CFG} << ENDCFGFILE
 
 CMD="qemu-system-x86_64"
 CPU="-accel kvm -cpu host"
-# Newer Q35 PCIe instead of i440FX PCI host bridge
+## Newer Q35 PCIe instead of i440FX PCI host bridge
 #CPU="-machine q35,accel=kvm -cpu host"
 SMP="-smp 2"
 RAM="-m 4G"
 #NIC="-nic mac=52:54:01:23:45:67"
-# Random MAC address
+## Random MAC address
 NIC="-nic mac=\$( printf 52:54:%02x:%02x:%02x:%02x \$(( \${RANDOM} & 0xff )) \$(( \${RANDOM} & 0xff )) \$(( \${RANDOM} & 0xff)) \$(( \${RANDOM} & 0xff )) )"
-#SND="-soundhw hda"
-SND="-device AC97"
+#SND="-device AC97"
+SND="-device intel-hda -device hda-duplex"
 #OPT="-monitor unix:/tmp/qemu-monitor,server,nowait -action panic=pause"
+#OPT="-display gtk,gl=on,window-close=off"
 ENDCFGFILE
 
 echo "Created ${CFG}"
@@ -60,6 +61,10 @@ fi
 # If first argument is a switch instead of file name, handle it
 case ${1} in
 
+--help)
+exec ${CMD} -h
+;;
+
 --)
 shift
 exec ${CMD} ${@}
@@ -76,7 +81,7 @@ shift
 ;;
 
 -v|--version)
-echo "$(basename ${0}) v${VER}"
+echo "$(basename ${0}) version ${VER}"
 exit 0
 ;;
 
@@ -97,13 +102,13 @@ QEMU options used automatically based on file extension:
   -hda		for .qcow2 .vdi .vmdk .vhdx ...
   -drive file=	for .raw .img
 
-For advanced usage type: $(basename ${0}) --help
+For advanced usage type: $(basename ${0}) -help
 
 ENDSHORTHELP
 exit 0
 ;;
 
---help)
+-help)
 cat << ENDLONGHELP
 
   $(basename ${0}) [-raw|-cd|--] diskimage.img [-opt] [-opt] [...]
@@ -114,7 +119,7 @@ Optional first switch:
   --		Pass everything that follows directly to QEMU
   -v		Show version
   -h		Basic help
-  --help	Advanced help
+  -help		Advanced help
 
 Some common QEMU [-opt]ions:
   -boot d		a b (FDD1 FDD2), c d (HDD1 HDD2), d (CDROM), n (NIC)
@@ -135,7 +140,6 @@ Some common QEMU [-opt]ions:
   -snapshot		Don't write changes to disk image (can still 'commit all' in Monitor)
   -S			Start paused
   -no-shutdown		Don't exit on shutdown
-  -no-quit		Don't allow closing window
   -full-screen
   -name			Title for QEMU window and VNC window
   -vnc :1		Video output to VNC server display :1 (password set in Monitor)
@@ -147,7 +151,7 @@ Some common QEMU [-opt]ions:
   -monitor telnet::5023,server,nowait
   -daemonize		Detach process from stdio
 
-For more QEMU options type: $(basename ${0}) -- --help
+For more QEMU options type: $(basename ${0}) --help
 
 ENDLONGHELP
 exit 0
