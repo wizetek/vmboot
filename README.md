@@ -4,34 +4,44 @@ QEMU VM launch wrapper
 Uses settings from a config file for consistent CPU and RAM setup, randomizes MAC address, and more.
 
 ---
-### Example usage
-* **Boot Linux ISO image**
+### Example usage:
+<br></br>
+**Boot Linux ISO image**
 ```
 $ vmboot antiX-19.4_x64-base.iso
 ```
 output:
 ###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -m 4G -nic mac=52:54:1f:c1:da:9a -device AC97 -cdrom "antiX-19.4_x64-base.iso"
----
-* **Boot Linux hard disk image**
+<br></br>
+
+**Boot Linux hard disk image**
 ```
 $ vmboot archman.img
 ```
 output:
 ###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -m 4G -nic mac=52:54:d9:2e:e9:01 -device AC97 -drive format=raw,file="archman.img"
----
-* **Access Linux hard disk image by booting into rescue CD image**
+<br></br>
+
+**Access Linux hard disk image by booting into rescue CD image**
 ```
 $ vmboot arco.qcow2 -cdrom systemrescue-9.03-amd64.iso -boot d
 ```
 output:
 ###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -m 4G -nic mac=52:54:a2:19:bb:c7 -device AC97 -cdrom systemrescue-9.03-amd64.iso -boot d -hda "arco.qcow2"
----
-* **Boot Windows© ISO image, attach hard disk image for installation, use Realtek network card and 8 GB RAM**
+<br></br>
+
+**Boot Windows© ISO image, attach hard disk image for installation, use Realtek network card and 8 GB RAM**
 ```
 $ vmboot win7sp1_PRO_x64FRE_en-us.iso -hda windows.qcow2 -nic model=rtl8139 -m 8G
 ```
 output:
 ###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -device AC97 -hda windows.qcow2 -nic model=rtl8139 -m 8G -cdrom "win7sp1_PRO_x64FRE_en-us.iso"
+<br></br>
+
+**Skip config file and pass argument directly to QEMU**
+```
+$ vmboot -- -device ?
+```
 
 ---
 ### Help
@@ -110,7 +120,7 @@ automatically generated
 CMD="qemu-system-x86_64"
 CPU="-accel kvm -cpu host"
 ## Newer Q35 PCIe instead of i440FX PCI host bridge
-#CPU="-machine q35,accel=kvm -cpu host"
+#CPU="${CPU} -machine q35"
 SMP="-smp 2"
 RAM="-m 4G"
 #NIC="-nic mac=52:54:01:23:45:67"
@@ -119,5 +129,5 @@ NIC="-nic mac=$( printf 52:54:%02x:%02x:%02x:%02x $(( ${RANDOM} & 0xff )) $(( ${
 #SND="-device AC97"
 SND="-device intel-hda -device hda-duplex"
 #OPT="-monitor unix:/tmp/qemu-monitor,server,nowait -action panic=pause"
-#OPT="-display gtk,gl=on,window-close=off"
+#OPT="${OPT} -display gtk,gl=on,window-close=off"
 ```
