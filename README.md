@@ -1,7 +1,8 @@
 ### vmboot
+
 QEMU VM launch wrapper
 
-Uses settings from a config file for consistent CPU and RAM setup, randomizes MAC address, and more.
+*Uses settings from a config file for consistent CPU and RAM setup, randomizes MAC address, and more.*
 
 ---
 ### Example usage:
