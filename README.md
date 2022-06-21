@@ -50,7 +50,7 @@ QEMU options used automatically based on file extension:
 For advanced usage type: vmboot -help
 ```
 ```
-$ vmboot --help
+$ vmboot -help
 
   vmboot [-raw|-cd|--] diskimage.img [-opt] [-opt] [...]
 
