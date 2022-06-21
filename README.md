@@ -38,7 +38,7 @@ output:
 ###### qemu-system-x86_64 -accel kvm -cpu host -smp 2 -device AC97 -hda windows.qcow2 -nic model=rtl8139 -m 8G -cdrom "win7sp1_PRO_x64FRE_en-us.iso"
 <br></br>
 
-**Skip config file and pass argument directly to QEMU**
+**Skip config file and pass arguments directly to QEMU**
 ```
 $ vmboot -- -device ?
 ```
@@ -50,7 +50,7 @@ $ vmboot -h
 
 Basic usage:
 
-  vmboot diskimage.img
+  vmboot diskimage
 
 QEMU options used automatically based on file extension:
   -cdrom	for .iso
@@ -62,7 +62,7 @@ For advanced usage type: vmboot -help
 ```
 $ vmboot -help
 
-  vmboot [-raw|-cd|--] diskimage.img [-opt] [-opt] [...]
+  vmboot [-raw|-cd|--] diskimage [-opt] [-opt] [...]
 
 Optional first switch:
   -raw		Force raw format for disk image
