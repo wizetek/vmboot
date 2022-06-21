@@ -47,7 +47,7 @@ QEMU options used automatically based on file extension:
   -hda		for .qcow2 .vdi .vmdk .vhdx ...
   -drive file=	for .raw .img
 
-For advanced usage type: vmboot --help
+For advanced usage type: vmboot -help
 ```
 ```
 $ vmboot --help
@@ -60,7 +60,7 @@ Optional first switch:
   --		Pass everything that follows directly to QEMU
   -v		Show version
   -h		Basic help
-  --help	Advanced help
+  -help	Advanced help
 
 Some common QEMU [-opt]ions:
   -boot d		a b (FDD1 FDD2), c d (HDD1 HDD2), d (CDROM), n (NIC)
@@ -81,7 +81,6 @@ Some common QEMU [-opt]ions:
   -snapshot		Don't write changes to disk image (can still 'commit all' in Monitor)
   -S			Start paused
   -no-shutdown		Don't exit on shutdown
-  -no-quit		Don't allow closing window
   -full-screen
   -name			Title for QEMU window and VNC window
   -vnc :1		Video output to VNC server display :1 (password set in Monitor)
@@ -93,7 +92,7 @@ Some common QEMU [-opt]ions:
   -monitor telnet::5023,server,nowait
   -daemonize		Detach process from stdio
 
-For more QEMU options type: vmboot -- --help
+For more QEMU options type: vmboot --help
 ```
 
 ---
@@ -110,14 +109,15 @@ automatically generated
 
 CMD="qemu-system-x86_64"
 CPU="-accel kvm -cpu host"
-# Newer Q35 PCIe instead of i440FX PCI host bridge
+## Newer Q35 PCIe instead of i440FX PCI host bridge
 #CPU="-machine q35,accel=kvm -cpu host"
 SMP="-smp 2"
 RAM="-m 4G"
 #NIC="-nic mac=52:54:01:23:45:67"
-# Random MAC address
+## Random MAC address
 NIC="-nic mac=$( printf 52:54:%02x:%02x:%02x:%02x $(( ${RANDOM} & 0xff )) $(( ${RANDOM} & 0xff )) $(( ${RANDOM} & 0xff)) $(( ${RANDOM} & 0xff )) )"
-#SND="-soundhw hda"
-SND="-device AC97"
+#SND="-device AC97"
+SND="-device intel-hda -device hda-duplex"
 #OPT="-monitor unix:/tmp/qemu-monitor,server,nowait -action panic=pause"
+#OPT="-display gtk,gl=on,window-close=off"
 ```
