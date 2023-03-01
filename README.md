@@ -1,8 +1,9 @@
-### [vmboot](https://github.com/wizetek/vmboot/raw/main/vmboot)
+### ~~[vmboot](https://github.com/wizetek/vmboot/raw/main/vmboot)~~
 
-QEMU VM launch wrapper
+~~QEMU VM launch wrapper~~<br>
+~~Uses settings from a config file for consistent CPU and RAM setup, randomizes MAC address, and more.~~
 
-*Uses settings from a config file for consistent CPU and RAM setup, randomizes MAC address, and more.*
+*>>> deprecated / superseded by [qvm](https://github.com/wizetek/qvm) <<<*
 
 ---
 ### Example usage:
